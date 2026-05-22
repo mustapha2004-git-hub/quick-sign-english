@@ -12,4 +12,15 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      proxy: {
+        "/hf-api": {
+          target: "https://api-inference.huggingface.co",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/hf-api/, ""),
+        },
+      },
+    },
+  },
 });
